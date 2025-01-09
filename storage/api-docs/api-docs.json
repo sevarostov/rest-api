@@ -5,9 +5,12 @@
         "version": "1"
     },
     "paths": {
-        "api/auth/login": {
+        "/api/auth/login": {
             "post": {
-                "operationId": "8a5b9e51760dc1e78e47c7d72f8bc23f",
+                "tags": [
+                    "User"
+                ],
+                "operationId": "8dcb70df1020986038d098cc08d05dae",
                 "requestBody": {
                     "description": "User's credentials",
                     "content": {
@@ -35,15 +38,30 @@
                 }
             }
         },
-        "api/buildings": {
+        "/api/buildings": {
             "get": {
-                "operationId": "872d12eb6efbdf76782bacad3455b156",
+                "tags": [
+                    "Buildings"
+                ],
+                "summary": "Get list of buildings",
+                "description": "Returns list of buildings",
+                "operationId": "index",
                 "responses": {
                     "200": {
-                        "description": "List of buildings"
+                        "description": "successful operation"
                     }
                 }
             }
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "User",
+            "description": "User"
+        },
+        {
+            "name": "Buildings",
+            "description": "Buildings"
+        }
+    ]
 }

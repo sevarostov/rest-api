@@ -21,9 +21,19 @@ class BuildingController extends Controller
 
     /**
      * @OA\Get(
-     *  path="api/buildings",
-     *  @OA\Response(response="200", description="List of buildings")
-     * )
+     *       path="/api/buildings",
+     *       operationId="index",
+     *       tags={"Buildings"},
+     *       summary="Get list of buildings",
+     *       description="Returns list of buildings",
+     *       @OA\Response(
+     *           response=200,
+     *           description="successful operation"
+     *        )
+     *      )
+     *
+     *  Returns list of clients
+     * /
      * @return JsonResource
      */
     public function index(): JsonResource

@@ -16,7 +16,8 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *  path="api/auth/login",
+     *  path="/api/auth/login",
+     *         tags={"User"},
      *         @OA\RequestBody(
      *          description="User's credentials",
      *          @OA\MediaType(
