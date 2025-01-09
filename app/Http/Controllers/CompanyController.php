@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CompanyCollection;
+use App\Models\Building;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 use App\Http\Filters\CompanyFilter;
@@ -30,6 +31,39 @@ class CompanyController extends Controller
     public function show(int $id): JsonResource
     {
         $companies = Company::filter($this->filter)->findOrFail($id);
+        return CompanyResource::make($companies);
+    }
+    /**
+     * @OA\Get(
+     *       path="/api/companies/building/{id}",
+     *       operationId="getByBuilding",
+     *       tags={"Company"},
+     *       summary="Get list of companies by building",
+     *       description="Returns list of companies by building",
+     *           @OA\Parameter(
+     *           description="building id",
+     *           in="path",
+     *           name="id",
+     *           required=true,
+     *           @OA\Schema(
+     *               type="integer",
+     *               example="1"
+     *           )
+     *       ),
+     *       @OA\Response(
+     *           response=200,
+     *           description="successful operation"
+     *        )
+     *      )
+     *
+     *  Returns list of companies by building
+     * /
+     * @return JsonResource
+     */
+    public function getByBuilding(int $id): JsonResource
+    {
+        $building = Building::filter($this->filter)->findOrFail($id);
+        $companies = Company::withWhereHas('building', fn($query) => $query->where('title', 'like', $building?->title))->get();
         return CompanyResource::make($companies);
     }
 }

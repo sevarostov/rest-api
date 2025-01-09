@@ -52,6 +52,33 @@
                     }
                 }
             }
+        },
+        "/api/companies/building/{id}": {
+            "get": {
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Get list of companies by building",
+                "description": "Returns list of companies by building",
+                "operationId": "getByBuilding",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "building id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
         }
     },
     "tags": [
@@ -62,6 +89,10 @@
         {
             "name": "Buildings",
             "description": "Buildings"
+        },
+        {
+            "name": "Company",
+            "description": "Company"
         }
     ]
 }

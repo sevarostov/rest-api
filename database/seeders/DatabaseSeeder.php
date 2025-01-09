@@ -23,23 +23,20 @@ class DatabaseSeeder extends Seeder
             ->count(10)
             ->create();
 
-        Building::factory()
-            ->count(10)
-            ->create();
+        for ($i = 0; $i < 10; $i++) {
+            $rubrics   = Rubric::factory()
+                              ->count(1)
+                              ->hasSubrubrics(2)
+                              ->create()
+            ;
+            $building = Building::factory()->create();
+            Company::factory()->hasRubrics(2)->create([ 'building_id' => $building->id ]);
 
-        Rubric::factory()
-            ->count(10)
-            ->create();
-
-        Rubric::factory()
-              ->count(10)
-              ->hasSubrubrics(2)
-              ->create();
-
-        Company::factory()
-              ->count(10)
-              ->hasBuilding(1)
-              ->hasRubrics(2)
-              ->create();
+            Company::all()->each(function ($company) use ($rubrics) {
+                $company->rubrics()->attach(
+                    $rubrics->pluck('id')->toArray()
+                );
+            });
+        }
     }
 }
