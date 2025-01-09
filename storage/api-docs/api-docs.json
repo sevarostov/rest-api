@@ -1,0 +1,49 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Rest API for catalog",
+        "version": "1"
+    },
+    "paths": {
+        "api/auth/login": {
+            "post": {
+                "operationId": "8a5b9e51760dc1e78e47c7d72f8bc23f",
+                "requestBody": {
+                    "description": "User's credentials",
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "vito49@example.net"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Get a JWT via given credentials"
+                    }
+                }
+            }
+        },
+        "api/buildings": {
+            "get": {
+                "operationId": "872d12eb6efbdf76782bacad3455b156",
+                "responses": {
+                    "200": {
+                        "description": "List of buildings"
+                    }
+                }
+            }
+        }
+    }
+}
