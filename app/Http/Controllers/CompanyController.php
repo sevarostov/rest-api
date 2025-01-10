@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CompanyCollection;
+use App\Http\Resources\CompanyResourceCollection;
 use App\Models\Building;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -63,7 +64,7 @@ class CompanyController extends Controller
     public function getByBuilding(int $id): JsonResource
     {
         $companies = Company::withWhereHas('building', fn($query) => $query->where('id', 'like', $id))->get();
-        dd(gettype($companies));
-        return CompanyResource::make($companies);
+
+        return CompanyResourceCollection::make($companies);
     }
 }

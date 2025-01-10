@@ -7,18 +7,26 @@ use App\Http\Filters\CompanyFilter;
 use App\Http\Requests\CompanyRequest;
 use App\Models\Building;
 use App\Models\Company;
-use App\Service\MessageService;
-use PHPUnit\Framework\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
 
 class CompanyControllerTest extends TestCase
 {
+//    use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
+
     /**
      * A basic test example.
      */
     public function test_that_getByBuilding_return_companies(): void
     {
-        $building = Building::factory()->make(['id' => 1]);
-        $company = Company::factory()->make([ 'building_id' => $building->id ]);
+        $building = Building::factory()->create(['id' => 1]);
+        $company = Company::factory()->create([ 'building_id' => $building->id ]);
 
         $request = new CompanyRequest();
         $request->initialize(
@@ -37,8 +45,8 @@ class CompanyControllerTest extends TestCase
             ->onlyMethods([])
             ->getMock()
         ;
-        $company = $companyController->getByBuilding($building->id);
-        dd('$company2');
-        $this->assertTrue(true);
+        $companies = $companyController->getByBuilding($building->id);
+
+        $this->assertTrue(count($companies) === 1);
     }
 }

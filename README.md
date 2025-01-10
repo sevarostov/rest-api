@@ -109,7 +109,7 @@ docker exec php php artisan l5-swagger:generate
 ## Run tests
 
 ```
-docker exec -i php php artisan test
+docker exec php vendor/bin/phpunit tests/Unit/CompanyControllerTest.php
 ```
 
 
