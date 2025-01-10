@@ -20,8 +20,10 @@ class BuildingController extends Controller
     }
 
     /**
+     *
      * @OA\Get(
-     *       path="/api/buildings",
+     *       security={{"apiKey": {}}},
+     *       path="/api/auth/buildings",
      *       operationId="index",
      *       tags={"Buildings"},
      *       summary="Get list of buildings",

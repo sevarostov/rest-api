@@ -38,7 +38,7 @@
                 }
             }
         },
-        "/api/buildings": {
+        "/api/auth/buildings": {
             "get": {
                 "tags": [
                     "Buildings"
@@ -50,10 +50,15 @@
                     "200": {
                         "description": "successful operation"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
-        "/api/companies/building/{id}": {
+        "/api/auth/companies/building/{id}": {
             "get": {
                 "tags": [
                     "Company"
@@ -77,10 +82,15 @@
                     "200": {
                         "description": "successful operation"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         },
-        "/api/companies/rubric/{id}": {
+        "/api/auth/companies/rubric/{id}": {
             "get": {
                 "tags": [
                     "Company"
@@ -104,7 +114,12 @@
                     "200": {
                         "description": "successful operation"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
             }
         }
     },
@@ -121,5 +136,15 @@
             "name": "Company",
             "description": "Company"
         }
-    ]
+    ],
+    "components": {
+        "securitySchemes": {
+            "apiKey": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
 }

@@ -36,7 +36,8 @@ class CompanyController extends Controller
     }
     /**
      * @OA\Get(
-     *       path="/api/companies/building/{id}",
+     *       security={{"apiKey": {}}},
+     *       path="/api/auth/companies/building/{id}",
      *       operationId="getByBuilding",
      *       tags={"Company"},
      *       summary="Get list of companies by building",
@@ -70,7 +71,8 @@ class CompanyController extends Controller
 
     /**
      * @OA\Get(
-     *       path="/api/companies/rubric/{id}",
+     *       security={{"apiKey": {}}},
+     *       path="/api/auth/companies/rubric/{id}",
      *       operationId="getByRubric",
      *       tags={"Company"},
      *       summary="Get list of companies by rubric",

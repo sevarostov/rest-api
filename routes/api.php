@@ -23,24 +23,20 @@ Route::group(['middleware' => 'api'], function () {
                      'prefix' => 'auth'
 
                  ], function ($router) {
-        Route::post('login', [AuthController::class, 'login']);
+        Route::post('login', [AuthController::class, 'login'])->name('login');
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('refresh', [AuthController::class, 'refresh']);
         Route::post('me', [AuthController::class, 'me']);
 
+        Route::apiResource('companies', CompanyController::class)
+             ->only(['index', 'show'])->middleware('auth:api');
+        Route::get('companies/building/{id}', 'App\Http\Controllers\CompanyController@getByBuilding')->middleware('auth:api');
+        Route::get('companies/rubric/{id}', 'App\Http\Controllers\CompanyController@getByRubric')->middleware('auth:api');
+        Route::apiResource('buildings', BuildingController::class)
+             ->only(['index', 'show'])->middleware('auth:api');
+        Route::apiResource('rubrics', RubricController::class)
+             ->only(['index', 'show'])->middleware('auth:api');
+
     });
 
-
-
-    Route::apiResource('companies', CompanyController::class)
-         ->only(['index', 'show']);
-    Route::get('companies/building/{id}', 'App\Http\Controllers\CompanyController@getByBuilding');
-    Route::get('companies/rubric/{id}', 'App\Http\Controllers\CompanyController@getByRubric');
-
-    Route::apiResource('buildings', BuildingController::class)
-         ->only(['index', 'show']);
-
-
-    Route::apiResource('rubrics', RubricController::class)
-         ->only(['index', 'show']);
 });
