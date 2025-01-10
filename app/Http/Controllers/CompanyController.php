@@ -62,8 +62,8 @@ class CompanyController extends Controller
      */
     public function getByBuilding(int $id): JsonResource
     {
-        $building = Building::filter($this->filter)->findOrFail($id);
-        $companies = Company::withWhereHas('building', fn($query) => $query->where('title', 'like', $building?->title))->get();
+        $companies = Company::withWhereHas('building', fn($query) => $query->where('id', 'like', $id))->get();
+        dd(gettype($companies));
         return CompanyResource::make($companies);
     }
 }

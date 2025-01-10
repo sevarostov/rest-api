@@ -17,7 +17,7 @@ abstract class QueryFilter
     {
         $this->filters = new Collection();
 
-        if ($request) {
+        if ($request && method_exists($request, 'validated') && null === $request) {
             $this->setFilters($request->validated());
         }
     }
