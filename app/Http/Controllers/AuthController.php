@@ -95,6 +95,8 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
+        $_GET['refresh_token'] = $token;
+
         return response()->json([
                                     'access_token' => $token,
                                     'token_type' => 'bearer',
