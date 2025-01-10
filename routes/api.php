@@ -35,6 +35,7 @@ Route::group(['middleware' => 'api'], function () {
     Route::apiResource('companies', CompanyController::class)
          ->only(['index', 'show']);
     Route::get('companies/building/{id}', 'App\Http\Controllers\CompanyController@getByBuilding');
+    Route::get('companies/rubric/{id}', 'App\Http\Controllers\CompanyController@getByRubric');
 
     Route::apiResource('buildings', BuildingController::class)
          ->only(['index', 'show']);

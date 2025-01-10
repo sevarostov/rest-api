@@ -63,7 +63,41 @@ class CompanyController extends Controller
      */
     public function getByBuilding(int $id): JsonResource
     {
-        $companies = Company::withWhereHas('building', fn($query) => $query->where('id', 'like', $id))->get();
+        $companies = Company::withWhereHas('building', fn($query) => $query->where('id', '=', $id))->get();
+
+        return CompanyResourceCollection::make($companies);
+    }
+
+    /**
+     * @OA\Get(
+     *       path="/api/companies/rubric/{id}",
+     *       operationId="getByRubric",
+     *       tags={"Company"},
+     *       summary="Get list of companies by rubric",
+     *       description="Returns list of companies by rubric",
+     *           @OA\Parameter(
+     *           description="rubric id",
+     *           in="path",
+     *           name="id",
+     *           required=true,
+     *           @OA\Schema(
+     *               type="integer",
+     *               example="1"
+     *           )
+     *       ),
+     *       @OA\Response(
+     *           response=200,
+     *           description="successful operation"
+     *        )
+     *      )
+     *
+     *  Returns list of companies by rubric
+     * /
+     * @return JsonResource
+     */
+    public function getByRubric(int $id): JsonResource
+    {
+        $companies = Company::withWhereHas('rubrics', fn($query) => $query->where('rubric_id', '=', $id))->get();
 
         return CompanyResourceCollection::make($companies);
     }

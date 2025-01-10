@@ -79,6 +79,33 @@
                     }
                 }
             }
+        },
+        "/api/companies/rubric/{id}": {
+            "get": {
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Get list of companies by rubric",
+                "description": "Returns list of companies by rubric",
+                "operationId": "getByRubric",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "rubric id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
         }
     },
     "tags": [
