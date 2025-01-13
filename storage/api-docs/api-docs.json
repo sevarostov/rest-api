@@ -19,7 +19,7 @@
                                 "properties": {
                                     "email": {
                                         "type": "string",
-                                        "example": "vito49@example.net"
+                                        "example": "leopold.kuhic@example.com"
                                     },
                                     "password": {
                                         "type": "string",
@@ -103,6 +103,58 @@
                         "name": "id",
                         "in": "path",
                         "description": "rubric id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/companies/map/point/{latitude}/{longitude}/{type}": {
+            "get": {
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Get list of companies by map point",
+                "description": "Returns list of companies by map point",
+                "operationId": "getByMapPoint",
+                "parameters": [
+                    {
+                        "name": "latitude",
+                        "in": "path",
+                        "description": "latitude",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "47.897709"
+                        }
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "path",
+                        "description": "longitude",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "40.082366"
+                        }
+                    },
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "description": "type of search: radius or rectangle",
                         "required": true,
                         "schema": {
                             "type": "integer",

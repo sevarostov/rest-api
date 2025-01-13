@@ -122,11 +122,11 @@ trait Searchable
 
     private function addDistanceToPoint(float $latitude, float $longitude): void
     {
-        $this->builder->selectRaw('( ? * acos( cos( radians(?) ) *
+        $this->builder->selectRaw('IFNULL( ( ? * acos( cos( radians(?) ) *
                            cos( radians( latitude ) )
                            * cos( radians( longitude ) - radians(?)
                            ) + sin( radians(?) ) *
                            sin( radians( latitude ) ) )
-                         ) AS distance', [$this->searchMetric(), $latitude, $longitude, $latitude]);
+                         ), 0) AS distance', [$this->searchMetric(), $latitude, $longitude, $latitude]);
     }
 }
