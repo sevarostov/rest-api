@@ -43,7 +43,7 @@
 
 
 
-## REST API for chat app
+## REST API for catalog
 
 ## Technical Requirements & Installation
 
