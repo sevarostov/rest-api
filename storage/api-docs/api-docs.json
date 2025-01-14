@@ -122,13 +122,13 @@
                 ]
             }
         },
-        "/api/auth/companies/map/point/{latitude}/{longitude}/{type}": {
+        "/api/auth/companies/map/point/{latitude}/{longitude}/{radius}": {
             "get": {
                 "tags": [
                     "Company"
                 ],
-                "summary": "Get list of companies by map point",
-                "description": "Returns list of companies by map point",
+                "summary": "Get list of companies by map point and radius",
+                "description": "Returns list of companies by map point and radius",
                 "operationId": "getByMapPoint",
                 "parameters": [
                     {
@@ -152,13 +152,75 @@
                         }
                     },
                     {
-                        "name": "type",
+                        "name": "radius",
                         "in": "path",
-                        "description": "type of search: radius or rectangle",
+                        "description": "radius (km)",
                         "required": true,
                         "schema": {
                             "type": "integer",
                             "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/companies/rectangle/{latitude1}/{longitude1}/{latitude2}/{longitude2}": {
+            "get": {
+                "tags": [
+                    "Company"
+                ],
+                "summary": "Get list of companies by rectangle",
+                "description": "Returns list of companies by rectangle",
+                "operationId": "getByRectangle",
+                "parameters": [
+                    {
+                        "name": "latitude1",
+                        "in": "path",
+                        "description": "latitude1",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "47.897709"
+                        }
+                    },
+                    {
+                        "name": "longitude1",
+                        "in": "path",
+                        "description": "longitude1",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "40.082366"
+                        }
+                    },
+                    {
+                        "name": "latitude2",
+                        "in": "path",
+                        "description": "latitude2",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "48.897709"
+                        }
+                    },
+                    {
+                        "name": "longitude2",
+                        "in": "path",
+                        "description": "longitude2",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "41.082366"
                         }
                     }
                 ],

@@ -109,11 +109,11 @@ class CompanyController extends Controller
     /**
      * @OA\Get(
      *       security={{"apiKey": {}}},
-     *       path="/api/auth/companies/map/point/{latitude}/{longitude}/{type}",
+     *       path="/api/auth/companies/map/point/{latitude}/{longitude}/{radius}",
      *       operationId="getByMapPoint",
      *       tags={"Company"},
-     *       summary="Get list of companies by map point",
-     *       description="Returns list of companies by map point",
+     *       summary="Get list of companies by map point and radius",
+     *       description="Returns list of companies by map point and radius",
      *           @OA\Parameter(
      *           description="latitude",
      *           in="path",
@@ -135,9 +135,9 @@ class CompanyController extends Controller
      *            )
      *        ),
      *             @OA\Parameter(
-     *             description="type of search: radius or rectangle",
+     *             description="radius (km)",
      *             in="path",
-     *             name="type",
+     *             name="radius",
      *             required=true,
      *             @OA\Schema(
      *                 type="integer",
@@ -150,20 +150,86 @@ class CompanyController extends Controller
      *        )
      *      )
      *
-     *  Returns list of companies by map point
+     *  Returns list of companies by map point and radius
      * /
      * @return JsonResource
      */
-    public function getByMapPoint(string $latitude, string $longitude, int $type)
+    public function getByMapPoint(string $latitude, string $longitude, int $radius)
     : JsonResource
     {
-        if (!in_array($type, [1, 2])) {
-            return new JsonResource(['msg' => 'allowed types are 1 or 2']);
-        }
-
         $this->filter->lat = $latitude;
         $this->filter->lon = $longitude;
-        $this->filter->radius = $type == 1 ? 1 : 0;
+        $this->filter->radius = $radius;
+        $companies = Company::filter($this->filter)->paginate(10);
+
+        return CompanyResourceCollection::make($companies);
+    }
+
+    /**
+     * @OA\Get(
+     *       security={{"apiKey": {}}},
+     *       path="/api/auth/companies/rectangle/{latitude1}/{longitude1}/{latitude2}/{longitude2}",
+     *       operationId="getByRectangle",
+     *       tags={"Company"},
+     *       summary="Get list of companies by rectangle",
+     *       description="Returns list of companies by rectangle",
+     *           @OA\Parameter(
+     *           description="latitude1",
+     *           in="path",
+     *           name="latitude1",
+     *           required=true,
+     *           @OA\Schema(
+     *               type="string",
+     *               example="47.897709"
+     *           )
+     *       ),
+     *            @OA\Parameter(
+     *            description="longitude1",
+     *            in="path",
+     *            name="longitude1",
+     *            required=true,
+     *            @OA\Schema(
+     *                type="string",
+     *                example="40.082366"
+     *            )
+     *        ),
+     *            @OA\Parameter(
+     *            description="latitude2",
+     *            in="path",
+     *            name="latitude2",
+     *            required=true,
+     *            @OA\Schema(
+     *                type="string",
+     *                example="48.897709"
+     *            )
+     *        ),
+     *             @OA\Parameter(
+     *             description="longitude2",
+     *             in="path",
+     *             name="longitude2",
+     *             required=true,
+     *             @OA\Schema(
+     *                 type="string",
+     *                 example="41.082366"
+     *             )
+     *         ),
+     *       @OA\Response(
+     *           response=200,
+     *           description="successful operation"
+     *        )
+     *      )
+     *
+     *  Returns list of companies by rectangle
+     * /
+     * @return JsonResource
+     */
+    public function getByRectangle(string $latitude1, string $longitude1, string $latitude2, string $longitude2)
+    : JsonResource
+    {
+        $this->filter->lat = $latitude1;
+        $this->filter->lon = $longitude1;
+        $this->filter->lat2 = $latitude2;
+        $this->filter->lon2 = $longitude2;
         $companies = Company::filter($this->filter)->paginate(10);
 
         return CompanyResourceCollection::make($companies);

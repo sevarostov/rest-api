@@ -38,10 +38,6 @@ trait Searchable
                 $this->inRectangle();
                 break;
 
-            case SearchLogicEnum::RECTANGLE_BY_POINT:
-                $this->inRectangleByPoint();
-                break;
-
             case SearchLogicEnum::NONE:
             default:
                 break;
@@ -97,9 +93,6 @@ trait Searchable
 
         if (isset($this->lat2, $this->lon2))
             return SearchLogicEnum::RECTANGLE;
-
-        if (isset($this->width, $this->height))
-            return SearchLogicEnum::RECTANGLE_BY_POINT;
 
         return SearchLogicEnum::NONE;
     }
