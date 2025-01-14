@@ -34,6 +34,8 @@ Route::group(['middleware' => 'api'], function () {
         Route::get('companies/rubric/{id}', 'App\Http\Controllers\CompanyController@getByRubric')->middleware('auth:api');
         Route::get('companies/map/point/{latitude}/{longitude}/{radius}', 'App\Http\Controllers\CompanyController@getByMapPoint')->middleware('auth:api');
         Route::get('companies/rectangle/{latitude1}/{longitude1}/{latitude2}/{longitude2}', 'App\Http\Controllers\CompanyController@getByRectangle')->middleware('auth:api');
+        Route::get('buildings/map/point/{latitude}/{longitude}/{radius}', 'App\Http\Controllers\BuildingController@getByMapPoint')->middleware('auth:api');
+        Route::get('buildings/rectangle/{latitude1}/{longitude1}/{latitude2}/{longitude2}', 'App\Http\Controllers\BuildingController@getByRectangle')->middleware('auth:api');
         Route::apiResource('buildings', BuildingController::class)
              ->only(['index', 'show'])->middleware('auth:api');
         Route::apiResource('rubrics', RubricController::class)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ApiResourceCollection;
 use App\Http\Resources\CompanyCollection;
 use App\Http\Resources\CompanyResourceCollection;
 use App\Models\Building;
@@ -68,14 +69,14 @@ class CompanyController extends Controller
     {
         $companies = Company::withWhereHas('building', fn($query) => $query->where('id', '=', $id))->get();
 
-        return CompanyResourceCollection::make($companies);
+        return ApiResourceCollection::make($companies);
     }
 
     /**
      * @OA\Get(
      *       security={{"apiKey": {}}},
      *       path="/api/auth/companies/rubric/{id}",
-     *       operationId="getByRubric",
+     *       operationId="getCompanyByRubric",
      *       tags={"Company"},
      *       summary="Get list of companies by rubric",
      *       description="Returns list of companies by rubric",
@@ -103,14 +104,14 @@ class CompanyController extends Controller
     {
         $companies = Company::withWhereHas('rubrics', fn($query) => $query->where('rubric_id', '=', $id))->get();
 
-        return CompanyResourceCollection::make($companies);
+        return ApiResourceCollection::make($companies);
     }
 
     /**
      * @OA\Get(
      *       security={{"apiKey": {}}},
      *       path="/api/auth/companies/map/point/{latitude}/{longitude}/{radius}",
-     *       operationId="getByMapPoint",
+     *       operationId="getCompanyByMapPoint",
      *       tags={"Company"},
      *       summary="Get list of companies by map point and radius",
      *       description="Returns list of companies by map point and radius",
@@ -162,14 +163,14 @@ class CompanyController extends Controller
         $this->filter->radius = $radius;
         $companies = Company::filter($this->filter)->paginate(10);
 
-        return CompanyResourceCollection::make($companies);
+        return ApiResourceCollection::make($companies);
     }
 
     /**
      * @OA\Get(
      *       security={{"apiKey": {}}},
      *       path="/api/auth/companies/rectangle/{latitude1}/{longitude1}/{latitude2}/{longitude2}",
-     *       operationId="getByRectangle",
+     *       operationId="getCompanyByRectangle",
      *       tags={"Company"},
      *       summary="Get list of companies by rectangle",
      *       description="Returns list of companies by rectangle",
@@ -232,6 +233,6 @@ class CompanyController extends Controller
         $this->filter->lon2 = $longitude2;
         $companies = Company::filter($this->filter)->paginate(10);
 
-        return CompanyResourceCollection::make($companies);
+        return ApiResourceCollection::make($companies);
     }
 }

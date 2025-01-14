@@ -17,7 +17,7 @@ class BuildingFilter extends QueryFilter
     public function companies(string $companies): void
     {
         $companies = explode(',', $companies);
-        $this->builder->whereHas('companies', function ($builder) use ($companies) {
+        $this->builder->whereHas( 'companies', function ($builder) use ($companies) {
             $builder->whereIn('companies.id', $companies);
         });
         $this->with('companies');

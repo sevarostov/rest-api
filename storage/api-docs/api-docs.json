@@ -41,11 +41,125 @@
         "/api/auth/buildings": {
             "get": {
                 "tags": [
-                    "Buildings"
+                    "Building"
                 ],
                 "summary": "Get list of buildings",
                 "description": "Returns list of buildings",
                 "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/buildings/map/point/{latitude}/{longitude}/{radius}": {
+            "get": {
+                "tags": [
+                    "Building"
+                ],
+                "summary": "Get list of Buildings by map point and radius",
+                "description": "Returns list of buildings by map point and radius",
+                "operationId": "getBuildingsByMapPoint",
+                "parameters": [
+                    {
+                        "name": "latitude",
+                        "in": "path",
+                        "description": "latitude",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "47.897709"
+                        }
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "path",
+                        "description": "longitude",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "40.082366"
+                        }
+                    },
+                    {
+                        "name": "radius",
+                        "in": "path",
+                        "description": "radius (km)",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "1"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/buildings/rectangle/{latitude1}/{longitude1}/{latitude2}/{longitude2}": {
+            "get": {
+                "tags": [
+                    "Building"
+                ],
+                "summary": "Get list of buildings by rectangle",
+                "description": "Returns list of buildings by rectangle",
+                "operationId": "getBuildingByRectangle",
+                "parameters": [
+                    {
+                        "name": "latitude1",
+                        "in": "path",
+                        "description": "latitude1",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "47.897709"
+                        }
+                    },
+                    {
+                        "name": "longitude1",
+                        "in": "path",
+                        "description": "longitude1",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "40.082366"
+                        }
+                    },
+                    {
+                        "name": "latitude2",
+                        "in": "path",
+                        "description": "latitude2",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "48.897709"
+                        }
+                    },
+                    {
+                        "name": "longitude2",
+                        "in": "path",
+                        "description": "longitude2",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "41.082366"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation"
@@ -97,7 +211,7 @@
                 ],
                 "summary": "Get list of companies by rubric",
                 "description": "Returns list of companies by rubric",
-                "operationId": "getByRubric",
+                "operationId": "getCompanyByRubric",
                 "parameters": [
                     {
                         "name": "id",
@@ -129,7 +243,7 @@
                 ],
                 "summary": "Get list of companies by map point and radius",
                 "description": "Returns list of companies by map point and radius",
-                "operationId": "getByMapPoint",
+                "operationId": "getCompanyByMapPoint",
                 "parameters": [
                     {
                         "name": "latitude",
@@ -181,7 +295,7 @@
                 ],
                 "summary": "Get list of companies by rectangle",
                 "description": "Returns list of companies by rectangle",
-                "operationId": "getByRectangle",
+                "operationId": "getCompanyByRectangle",
                 "parameters": [
                     {
                         "name": "latitude1",
@@ -243,8 +357,8 @@
             "description": "User"
         },
         {
-            "name": "Buildings",
-            "description": "Buildings"
+            "name": "Building",
+            "description": "Building"
         },
         {
             "name": "Company",
