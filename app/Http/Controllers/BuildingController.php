@@ -34,7 +34,22 @@ class BuildingController extends Controller
      *       description="Returns list of buildings",
      *       @OA\Response(
      *           response=200,
-     *           description="successful operation"
+     *           description="successful operation",
+     *          @OA\MediaType(
+     *                 mediaType="application/json",
+     *                  @OA\Schema(
+     *                      @OA\Property(
+     *                               property="meta",
+     *                               type="array",
+     *                             @OA\Items(ref="#/components/schemas/ApiResourceCollection")
+     *                      ),
+     *                       @OA\Property(
+     *                                property="data",
+     *                                type="array",
+     *                                @OA\Items(ref="#/components/schemas/Building")
+     *                       ),
+     *                 ),
+     *          ),
      *        )
      *      )
      *
@@ -94,9 +109,24 @@ class BuildingController extends Controller
      *         ),
      *       @OA\Response(
      *           response=200,
-     *           description="successful operation"
-     *        )
-     *      )
+     *           description="successful operation",
+     *          @OA\MediaType(
+     *                mediaType="application/json",
+     *                 @OA\Schema(
+     *                     @OA\Property(
+     *                              property="meta",
+     *                              type="array",
+     *                            @OA\Items(ref="#/components/schemas/ApiResourceCollection")
+     *                     ),
+     *                      @OA\Property(
+     *                               property="data",
+     *                               type="array",
+     *                               @OA\Items(ref="#/components/schemas/Building")
+     *                      ),
+     *                ),
+     *         ),
+     *       )
+     *  )
      *
      *  Returns list of Buildings by map point and radius
      * /
@@ -105,16 +135,10 @@ class BuildingController extends Controller
     public function getByMapPoint(string $latitude, string $longitude, int $radius)
     : JsonResource
     {
-        DB::connection()->enableQueryLog();
-
         $this->filter->lat = $latitude;
         $this->filter->lon = $longitude;
         $this->filter->radius = $radius;
         $buildings = Building::filter($this->filter)->paginate(10);
-
-        $queries = DB::getQueryLog();
-        file_put_contents('/var/www/html/storage/logs/query.log', ( new \DateTimeImmutable())->format('Y-m-d H:i:s').' '
-                                                                  ."\n". json_encode($queries), FILE_APPEND);
 
         return ApiResourceCollection::make($buildings);
     }
@@ -169,7 +193,22 @@ class BuildingController extends Controller
      *         ),
      *       @OA\Response(
      *           response=200,
-     *           description="successful operation"
+     *           description="successful operation",
+     *          @OA\MediaType(
+     *                 mediaType="application/json",
+     *                  @OA\Schema(
+     *                      @OA\Property(
+     *                               property="meta",
+     *                               type="array",
+     *                             @OA\Items(ref="#/components/schemas/ApiResourceCollection")
+     *                      ),
+     *                       @OA\Property(
+     *                                property="data",
+     *                                type="array",
+     *                                @OA\Items(ref="#/components/schemas/Building")
+     *                       ),
+     *                 ),
+     *          ),
      *        )
      *      )
      *

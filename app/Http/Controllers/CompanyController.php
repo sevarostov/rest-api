@@ -4,19 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ApiResourceCollection;
 use App\Http\Resources\CompanyCollection;
-use App\Http\Resources\CompanyResourceCollection;
-use App\Models\Building;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 use App\Http\Filters\CompanyFilter;
 use App\Http\Requests\CompanyRequest;
 use App\Http\Resources\CompanyResource;
 use App\Models\Company;
-use Illuminate\Support\Facades\DB;
 
-/**
- * @OA\Info(title="Rest API for catalog", version="1")
- */
 class CompanyController extends Controller
 {
     private CompanyFilter $filter;

@@ -33,7 +33,28 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Get a JWT via given credentials"
+                        "description": "Get a JWT via given credentials",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BvcnRhbHRlc3QyLnJ1L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzM2ODUwNTM5LCJleHAiOjE3MzY4NTQxMzksIm5iZiI6MTczNjg1MDUzOSwianRpIjoiRWZ5U1liTGhJMWlMbVNYSCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.9766eqWuUCqI-993e6nCPohNrQfUFk6v1DRDtqoFqLA"
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "bearer"
+                                        },
+                                        "expires_in": {
+                                            "type": "integer",
+                                            "example": 3600
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -48,7 +69,28 @@
                 "operationId": "index",
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "meta": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ApiResourceCollection"
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Building"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -100,7 +142,28 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "meta": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ApiResourceCollection"
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Building"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -162,7 +225,28 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "successful operation"
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "meta": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ApiResourceCollection"
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Building"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -351,6 +435,80 @@
             }
         }
     },
+    "components": {
+        "schemas": {
+            "ApiResourceCollection": {
+                "properties": {
+                    "total": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "perPage": {
+                        "type": "integer",
+                        "example": 10
+                    },
+                    "currentPage": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "totalPages": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "nextPage": {
+                        "type": "integer",
+                        "example": null
+                    },
+                    "prevPage": {
+                        "type": "integer",
+                        "example": null
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "ApiResourceCollection"
+                }
+            },
+            "Building": {
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "latitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": 47.897709
+                    },
+                    "longitude": {
+                        "type": "number",
+                        "format": "float",
+                        "example": "40.082366"
+                    },
+                    "distance": {
+                        "type": "integer",
+                        "example": "1"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "67408 Frami Plains Apt. 051\n         * North Linnie, DC 98000-2914"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Building"
+                }
+            }
+        },
+        "securitySchemes": {
+            "apiKey": {
+                "type": "apiKey",
+                "description": "Enter token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
     "tags": [
         {
             "name": "User",
@@ -364,15 +522,5 @@
             "name": "Company",
             "description": "Company"
         }
-    ],
-    "components": {
-        "securitySchemes": {
-            "apiKey": {
-                "type": "apiKey",
-                "description": "Enter token in format (Bearer <token>)",
-                "name": "Authorization",
-                "in": "header"
-            }
-        }
-    }
+    ]
 }

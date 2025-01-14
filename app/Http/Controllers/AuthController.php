@@ -36,7 +36,30 @@ class AuthController extends Controller
      *              ),
      *         )
      *      ),
-     *  @OA\Response(response="200", description="Get a JWT via given credentials")
+     *  @OA\Response(
+     *     response="200",
+     *     description="Get a JWT via given credentials",
+     *         @OA\MediaType(
+     *               mediaType="application/json",
+     *                @OA\Schema(
+     *                    @OA\Property(
+     *                             property="access_token",
+     *                             type="string",
+     *                             example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3BvcnRhbHRlc3QyLnJ1L2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNzM2ODUwNTM5LCJleHAiOjE3MzY4NTQxMzksIm5iZiI6MTczNjg1MDUzOSwianRpIjoiRWZ5U1liTGhJMWlMbVNYSCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.9766eqWuUCqI-993e6nCPohNrQfUFk6v1DRDtqoFqLA"
+     *                    ),
+     *                     @OA\Property(
+     *                              property="token_type",
+     *                              type="string",
+     *                              example="bearer"
+     *                     ),
+     *                     @OA\Property(
+     *                               property="expires_in",
+     *                               type="integer",
+     *                               example=3600
+     *                      ),
+     *               ),
+     *        ),
+     *   )
      * )
      * Get a JWT via given credentials.
      *

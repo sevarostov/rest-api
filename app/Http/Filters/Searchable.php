@@ -47,7 +47,7 @@ trait Searchable
     public function inCircle(): void
     {
         $this->addDistanceToPoint($this->lat, $this->lon);
-        $this->builder->having('distance', "<", $this->radius);
+        $this->builder->having('distance', "<=", $this->radius);
     }
 
     public function inRectangle(): void

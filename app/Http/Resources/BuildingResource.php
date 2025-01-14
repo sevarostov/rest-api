@@ -18,10 +18,8 @@ class BuildingResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'coords' => [
-                'lat' => $this->latitude,
-                'lon' => $this->longitude
-            ],
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
             'companies' => CompanyResource::collection($this->whenLoaded('companies')),
             'distance' => $this->when(isset($this->distance), $this->distance)
         ];
